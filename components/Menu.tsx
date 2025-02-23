@@ -15,7 +15,7 @@ function Menu({ title, subtitle }: MenuProps) {
 
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   return (
-    <div className="bg-white flex justify-between py-2 px-5 border-b border-[#DEDEDF]">
+    <div className="sticky top-0 z-10 bg-white flex justify-between py-2 px-5 border-b border-[#DEDEDF]">
       <div className="flex gap-3 items-center text-[#001735] font-medium">
         <Image
           className="lg:hidden cursor-pointer"
