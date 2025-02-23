@@ -1,3 +1,4 @@
+import ComingSoon from "../../components/ComingSoon";
 import Menu from "../../components/Menu";
 
 function page() {
@@ -5,6 +6,7 @@ function page() {
     <div className="w-full">
       {" "}
       <Menu title="Stock" />
+      <ComingSoon title="Stock" />
     </div>
   );
 }

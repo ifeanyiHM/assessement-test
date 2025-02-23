@@ -89,10 +89,7 @@ const Table = ({ onOpenModal, isModalOpen }: TableProps) => {
           className="relative group rounded-full transition-transform duration-300"
         >
           {isModalOpen ? (
-            <span
-              className="absolute -top-10 -right-16 border border-[#E2E2E2] bg-[#F6F6F6] 
-                     w-8 h-8 flex items-center justify-center rounded-full"
-            >
+            <span className="absolute -top-10 -right-16 border border-[#E2E2E2] bg-[#F6F6F6] w-8 h-8 flex items-center justify-center rounded-full">
               ✖
             </span>
           ) : (

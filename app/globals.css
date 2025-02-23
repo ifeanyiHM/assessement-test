@@ -102,6 +102,16 @@ body {
   border-radius: 6px;
 }
 
+.spinner {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid #633cff;
+  border-right-color: #fafafa;
+  animation: rotate 1s infinite linear;
+}
+
 .spinner-mini {
   margin: 0;
   width: 20px;

@@ -21,31 +21,19 @@ const CardDistribution = ({ startDate }: CardDistributionProps) => {
   const [legendPadding, setLegendPadding] = useState(35);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const updateAspectRatio = () => {
-        setAspectRatio(window.innerWidth < 1280 ? 1.6 : 1.7);
-      };
+    if (typeof window === "undefined") return;
 
-      updateAspectRatio();
-      window.addEventListener("resize", updateAspectRatio);
+    const updateValues = () => {
+      setAspectRatio(window.innerWidth < 1280 ? 1.6 : 1.7);
+      setLegendPadding(
+        window.innerWidth < 1024 ? 10 : window.innerWidth < 1280 ? 15 : 35
+      );
+    };
 
-      return () => window.removeEventListener("resize", updateAspectRatio);
-    }
-  }, []);
+    updateValues();
+    window.addEventListener("resize", updateValues);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const updateLegendPadding = () => {
-        setLegendPadding(
-          window.innerWidth < 1024 ? 10 : window.innerWidth < 1280 ? 15 : 35
-        );
-      };
-
-      updateLegendPadding();
-      window.addEventListener("resize", updateLegendPadding);
-
-      return () => window.removeEventListener("resize", updateLegendPadding);
-    }
+    return () => window.removeEventListener("resize", updateValues);
   }, []);
 
   const defaultData = {
