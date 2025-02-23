@@ -33,6 +33,7 @@ export default function FeesTable() {
     accountPad: "None",
     account: "",
   });
+  const [error, setError] = useState("");
 
   const addFee = () => {
     setIsModalOpen(true);
@@ -49,6 +50,11 @@ export default function FeesTable() {
   };
 
   const handleSubmit = () => {
+    if (!formData.name.trim()) {
+      setError("Name is required!");
+      return;
+    }
+
     setFees([...fees, formData]);
     setIsModalOpen(false);
     setFormData({
@@ -66,6 +72,7 @@ export default function FeesTable() {
     <div className="mt-4 border border-[#E2E2E2] bg-white px-4 pt-4 pb-20 rounded-xl">
       <h3 className="text-lg font-medium text-[#121212]">Fees</h3>
       <button
+        type="button"
         onClick={addFee}
         className="bg-[#014DAF] py-2 px-3.5 mt-6 mb-[11px] flex items-center gap-2 text-white text-xs font-medium rounded"
       >
@@ -127,141 +134,133 @@ export default function FeesTable() {
                 ✖
               </span>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-2 xl:space-y-4">
-                <div className="flex space-x-2 min-[1395px]:flex-col min-[1395px]:space-y-4">
-                  <div className="space-y-1.5">
-                    <label className={labelStyle}>Fee Name*</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Maintenance"
-                      required
-                      className={inputStyle}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className={labelStyle}>Value</label>
-                    <input
-                      type="number"
-                      name="value"
-                      value={formData.value}
-                      onChange={handleChange}
-                      placeholder="0"
-                      className={inputStyle}
-                    />
-                  </div>
-                </div>
-                <div className="min-[1395px]:space-y-1.5">
-                  <h3 className={labelStyle}>Currency</h3>
-                  <div className="flex space-x-4">
-                    {["NGN", "USD"].map((option) => (
-                      <label
-                        key={option}
-                        className="flex items-center space-x-2"
-                      >
-                        <input
-                          type="radio"
-                          name="currency"
-                          value={option}
-                          checked={formData.currency === option}
-                          onChange={handleChange}
-                          className={radioStyle}
-                          disabled
-                        />
-                        <span className={radioTextStyle}>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <div className="min-[1395px]:space-y-1.5">
-                  <h3 className={labelStyle}>Fee Frequency</h3>
-                  <div className="flex space-x-4">
-                    {["One Off", "Monthly"].map((option) => (
-                      <label
-                        key={option}
-                        className="flex items-center space-x-2"
-                      >
-                        <input
-                          type="radio"
-                          name="frequency"
-                          value={option}
-                          checked={formData.frequency === option}
-                          onChange={handleChange}
-                          className={radioStyle}
-                        />
-                        <span className={radioTextStyle}>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <div className="min-[1395px]:space-y-1.5">
-                  <h3 className={labelStyle}>Fee Impact</h3>
-                  <div className="flex space-x-4">
-                    {["Issuance", "Pin Reissue"].map((option) => (
-                      <label
-                        key={option}
-                        className="flex items-center space-x-2"
-                      >
-                        <input
-                          type="radio"
-                          name="feeImpact"
-                          value={option}
-                          // checked={option === option}
-                          // onChange={handleChange}
-                          className={radioStyle}
-                        />
-                        <span className={radioTextStyle}>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-                <div className="min-[1395px]:space-y-1.5">
-                  <h3 className={labelStyle}>AccountPad</h3>
-                  <div className="flex space-x-4">
-                    {["None", "Branch Code Prefix", "Branch Code Suffix"].map(
-                      (option) => (
-                        <label
-                          key={option}
-                          className="flex items-center space-x-2"
-                        >
-                          <input
-                            type="radio"
-                            name="accountPad"
-                            value={option}
-                            checked={formData.accountPad === option}
-                            onChange={handleChange}
-                            className={radioStyle}
-                          />
-                          <span className={radioTextStyle}>{option}</span>
-                        </label>
-                      )
-                    )}
-                  </div>
-                </div>
+
+            <div className="space-y-2 xl:space-y-4">
+              <div className="flex space-x-2 min-[1395px]:flex-col min-[1395px]:space-y-4">
                 <div className="space-y-1.5">
-                  <label className={labelStyle}>Account</label>
+                  <label className={labelStyle}>Fee Name*</label>
                   <input
                     type="text"
-                    name="account"
-                    value={formData.account}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     placeholder="Maintenance"
+                    required
+                    className={inputStyle}
+                  />
+                  {error && <p className="text-red-500 text-xs">{error}</p>}
+                </div>
+                <div className="space-y-1.5">
+                  <label className={labelStyle}>Value</label>
+                  <input
+                    type="number"
+                    name="value"
+                    value={formData.value}
+                    onChange={handleChange}
+                    placeholder="0"
                     className={inputStyle}
                   />
                 </div>
               </div>
-              <div className="border-t border-[#EAECF0] mt-4 pt-4 xl:mt-8 xl:pt-6">
-                <button
-                  type="submit"
-                  className="bg-[#014DAF] text-white font-bold py-1.5 xl:py-2.5 rounded w-full"
-                >
-                  Add Fee
-                </button>
+              <div className="min-[1395px]:space-y-1.5">
+                <h3 className={labelStyle}>Currency</h3>
+                <div className="flex space-x-4">
+                  {["NGN", "USD"].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        name="currency"
+                        value={option}
+                        checked={formData.currency === option}
+                        onChange={handleChange}
+                        className={radioStyle}
+                        disabled
+                      />
+                      <span className={radioTextStyle}>{option}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
-            </form>
+              <div className="min-[1395px]:space-y-1.5">
+                <h3 className={labelStyle}>Fee Frequency</h3>
+                <div className="flex space-x-4">
+                  {["One Off", "Monthly"].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        name="frequency"
+                        value={option}
+                        checked={formData.frequency === option}
+                        onChange={handleChange}
+                        className={radioStyle}
+                      />
+                      <span className={radioTextStyle}>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="min-[1395px]:space-y-1.5">
+                <h3 className={labelStyle}>Fee Impact</h3>
+                <div className="flex space-x-4">
+                  {["Issuance", "Pin Reissue"].map((option) => (
+                    <label key={option} className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        name="feeImpact"
+                        value={option}
+                        // checked={option === option}
+                        // onChange={handleChange}
+                        className={radioStyle}
+                      />
+                      <span className={radioTextStyle}>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="min-[1395px]:space-y-1.5">
+                <h3 className={labelStyle}>AccountPad</h3>
+                <div className="flex space-x-4">
+                  {["None", "Branch Code Prefix", "Branch Code Suffix"].map(
+                    (option) => (
+                      <label
+                        key={option}
+                        className="flex items-center space-x-2"
+                      >
+                        <input
+                          type="radio"
+                          name="accountPad"
+                          value={option}
+                          checked={formData.accountPad === option}
+                          onChange={handleChange}
+                          className={radioStyle}
+                        />
+                        <span className={radioTextStyle}>{option}</span>
+                      </label>
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className={labelStyle}>Account</label>
+                <input
+                  type="text"
+                  name="account"
+                  value={formData.account}
+                  onChange={handleChange}
+                  placeholder="Maintenance"
+                  className={inputStyle}
+                />
+              </div>
+            </div>
+            <div className="border-t border-[#EAECF0] mt-4 pt-4 xl:mt-8 xl:pt-6">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="bg-[#014DAF] text-white font-bold py-1.5 xl:py-2.5 rounded w-full"
+              >
+                Add Fee
+              </button>
+            </div>
           </div>
         </div>
       )}

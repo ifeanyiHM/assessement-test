@@ -157,7 +157,7 @@ export default function Home() {
                 <div>
                   {" "}
                   <Image
-                    src={`icons/icon${index + 1}.svg`}
+                    src={`icons/analytic${index + 1}.svg`}
                     className="w-[13px] height-[10px]"
                     alt={item.title}
                     width={13.5}
